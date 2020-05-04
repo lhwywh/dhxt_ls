@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.lsgdut.dhxt.db.PartMapper">
+    <select id="getPart" resultType="xyz.lsgdut.dhxt.bean.Part" parameterType="int">
+        select * from PartInfo where partId = #{id}
+    </select>
+
+    <select id="getAllPart" resultType="xyz.lsgdut.dhxt.bean.Part">
+        select * from PartInfo
+    </select>
+<!--    <insert id="insertUser" parameterType="xyz.lsgdut.dhxt.bean.User">-->
+<!--        INSERT INTO user(username,password,address) VALUES (#{username},#{password},#{address})-->
+<!--    </insert>-->
+<!--    <delete id="deleteUser" parameterType="Long">-->
+<!--        DELETE FROM user where id=#{id}-->
+<!--    </delete>-->
+<!--    <select id="getAll" resultType="u">-->
+<!--        SELECT * from user-->
+<!--    </select>-->
+</mapper>
