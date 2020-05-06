@@ -29,6 +29,8 @@
     <!--<package name="org.sang.db"/>-->
     <!--<mapper class="org.sang.db.UserMapper"/>-->
     <mappers>
-        <mapper resource="Mapper/partMapper.xml"/>
+        <mapper resource="mappers/partMapper.xml"/>
+        <mapper resource="mappers/supplierMapper.xml"/>
+<!--        <package name="xyz.lsgdut.dhxt.db"/>-->
     </mappers>
 </configuration>
