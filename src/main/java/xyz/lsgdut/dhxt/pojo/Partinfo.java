@@ -13,7 +13,7 @@ public class Partinfo {
 
     private Integer partNum;
 
-    private String criticalValue;
+    private Integer criticalValue;
 
     public Integer getPartId() {
         return partId;
@@ -63,11 +63,11 @@ public class Partinfo {
         this.partNum = partNum;
     }
 
-    public String getCriticalValue() {
+    public Integer getCriticalValue() {
         return criticalValue;
     }
 
-    public void setCriticalValue(String criticalValue) {
-        this.criticalValue = criticalValue == null ? null : criticalValue.trim();
+    public void setCriticalValue(Integer criticalValue) {
+        this.criticalValue = criticalValue;
     }
 }

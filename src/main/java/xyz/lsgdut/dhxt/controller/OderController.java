@@ -3,15 +3,18 @@ package xyz.lsgdut.dhxt.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import xyz.lsgdut.dhxt.pojo.Order;
+import xyz.lsgdut.dhxt.pojo.Orderform;
 import xyz.lsgdut.dhxt.pojo.VO.OrderVO;
 import xyz.lsgdut.dhxt.service.OrderService;
+import xyz.lsgdut.dhxt.utils.ExcelUtil;
 import xyz.lsgdut.dhxt.utils.JSONResult;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/dhxt/order/")
 public class OderController {
 
 
@@ -31,7 +34,8 @@ public class OderController {
 
     @RequestMapping(value = "/addOneOrder", method = RequestMethod.GET)
     @ResponseBody
-    public JSONResult addOneOrder(@ModelAttribute Order order) {
+    public JSONResult addOneOrder(@ModelAttribute Orderform order) {
+        System.out.println(order.getDate());
         String msg = orderService.addOneOrder(order);
 
         if (msg != null) {
@@ -41,17 +45,45 @@ public class OderController {
         }
     }
 
-    @RequestMapping(value = "/getAllOrders", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllOrders")
     @ResponseBody
     public JSONResult getAllOrders() {
         List<OrderVO> orderVOS = new ArrayList<>();
         orderVOS=orderService.getAllOrder();
-        if (orderVOS.isEmpty()) {
+        if (orderVOS==null) {
             return JSONResult.errorMsg("还没有订货信息");
         } else {
             return JSONResult.ok(orderVOS);
         }
     }
 
+    @RequestMapping("/getTodayForm")
+    @ResponseBody
+    public JSONResult getTodayForm(){
+
+        List<OrderVO> orders = orderService.getTodayOrders();
+        if (orders.size()==0){
+            return JSONResult.errorMsg("还没有订货报表");
+        }else{
+            return  JSONResult.ok(orders);
+        }
+    }
+
+
+
+    @RequestMapping("/exportExcel")
+    public void export(HttpServletResponse response){
+
+        List<OrderVO> orders = orderService.getTodayOrders();
+        if (orders==null){
+
+        }else{
+            System.out.println("aaaa"+JSONResult.ok(orders).toString());
+            //导出操作
+
+            ExcelUtil.exportExcel(orders,"订货报表","sheet1",OrderVO.class,"testDATA.xls",response);
+
+        }
+    }
 
 }

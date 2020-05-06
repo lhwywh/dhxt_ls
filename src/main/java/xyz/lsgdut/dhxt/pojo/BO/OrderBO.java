@@ -1,11 +1,10 @@
-package xyz.lsgdut.dhxt.pojo;
+package xyz.lsgdut.dhxt.pojo.BO;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class Order {
-
+public class OrderBO {
     private Integer orderId;
 
     private Integer oderNum;
@@ -17,6 +16,15 @@ public class Order {
     private Integer secSupplierId;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
+
+    public OrderBO(Integer orderId, Integer oderNum, Integer partId, Integer mainSupplierId, Integer secSupplierId, Date date) {
+        this.orderId = orderId;
+        this.oderNum = oderNum;
+        this.partId = partId;
+        this.mainSupplierId = mainSupplierId;
+        this.secSupplierId = secSupplierId;
+        this.date = date;
+    }
 
     public Integer getOrderId() {
         return orderId;

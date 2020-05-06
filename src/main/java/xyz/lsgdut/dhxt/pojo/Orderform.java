@@ -4,8 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class Order {
-
+public class Orderform {
     private Integer orderId;
 
     private Integer oderNum;

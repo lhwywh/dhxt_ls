@@ -46,7 +46,7 @@
         <!-- 指定数据库表 -->
         <table tableName="PartInfo"></table>
         <table tableName="Supplier"></table>
-        <table tableName="Order"></table>
+        <table tableName="OrderForm"></table>
         <table tableName="Stocks"></table>
 
         <!-- 有些表的字段需要指定java类型

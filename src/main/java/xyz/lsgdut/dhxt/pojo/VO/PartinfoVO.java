@@ -13,7 +13,7 @@ public class PartinfoVO {
 
     private Integer secSupplierId;
 
-    public PartinfoVO(Integer partId, String partName, Float partPrice, Integer mainSupplierId, Integer secSupplierId, Integer partNum, String criticalValue, String mainSupplierName, String secSupplierName) {
+    public PartinfoVO(Integer partId, String partName, Float partPrice, Integer mainSupplierId, Integer secSupplierId, Integer partNum, int criticalValue, String mainSupplierName, String secSupplierName) {
         this.partId = partId;
         this.partName = partName;
         this.partPrice = partPrice;
@@ -54,7 +54,7 @@ public class PartinfoVO {
                 '}';
     }
 
-    private String criticalValue;
+    private int criticalValue;
 
     private String mainSupplierName;
 
@@ -126,11 +126,7 @@ public class PartinfoVO {
         this.partNum = partNum;
     }
 
-    public String getCriticalValue() {
+    public int getCriticalValue() {
         return criticalValue;
-    }
-
-    public void setCriticalValue(String criticalValue) {
-        this.criticalValue = criticalValue == null ? null : criticalValue.trim();
     }
 }
