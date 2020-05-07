@@ -1,11 +1,8 @@
 package xyz.lsgdut.dhxt.pojo;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 public class Order {
-
     private Integer orderId;
 
     private Integer oderNum;
@@ -15,8 +12,10 @@ public class Order {
     private Integer mainSupplierId;
 
     private Integer secSupplierId;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private Date date;
+
+    private Integer isComplete;
 
     public Integer getOrderId() {
         return orderId;
@@ -64,5 +63,13 @@ public class Order {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Integer getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Integer isComplete) {
+        this.isComplete = isComplete;
     }
 }

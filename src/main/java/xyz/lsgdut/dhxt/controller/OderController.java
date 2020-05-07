@@ -32,7 +32,7 @@ public class OderController {
         }
     }
 
-    @RequestMapping(value = "/addOneOrder", method = RequestMethod.GET)
+    @RequestMapping(value = "/addOneOrder")
     @ResponseBody
     public JSONResult addOneOrder(@ModelAttribute Orderform order) {
         System.out.println(order.getDate());
@@ -50,8 +50,20 @@ public class OderController {
     public JSONResult getAllOrders() {
         List<OrderVO> orderVOS = new ArrayList<>();
         orderVOS=orderService.getAllOrder();
-        if (orderVOS==null) {
+        if (orderVOS.size()==0) {
             return JSONResult.errorMsg("还没有订货信息");
+        } else {
+            return JSONResult.ok(orderVOS);
+        }
+    }
+
+    @RequestMapping(value = "/getAllIncompleteOrders")
+    @ResponseBody
+    public JSONResult getAllIncompleteOrders() {
+        List<OrderVO> orderVOS = new ArrayList<>();
+        orderVOS=orderService.getAllIncompleteOrder();
+        if (orderVOS.size()==0) {
+            return JSONResult.errorMsg("还没有未完成的订货信息");
         } else {
             return JSONResult.ok(orderVOS);
         }
@@ -83,6 +95,36 @@ public class OderController {
 
             ExcelUtil.exportExcel(orders,"订货报表","sheet1",OrderVO.class,"testDATA.xls",response);
 
+        }
+    }
+
+    @RequestMapping("/deleteOneOrder")
+    @ResponseBody
+    public JSONResult deleteOneOrder(@RequestParam(value = "orderId", required = true, defaultValue = "-1") int id){
+        String msg = orderService.deleteOneOrderById(id);
+        if (msg!=null){
+            if(msg.contains("成功")){
+                return JSONResult.ok(msg);
+            }else{
+                return  JSONResult.errorMsg(msg);
+            }
+        }else{
+            return JSONResult.errorMsg("控制层出现问题");
+        }
+    }
+
+    @RequestMapping("/completeOneOrder")
+    @ResponseBody
+    public JSONResult completeOneOrder(@RequestParam(value = "orderId", required = true, defaultValue = "-1") int id){
+        String msg = orderService.completeOneOrder(id);
+        if (msg!=null){
+            if(msg.contains("成功")){
+                return JSONResult.ok(msg);
+            }else{
+                return  JSONResult.errorMsg(msg);
+            }
+        }else{
+            return JSONResult.errorMsg("控制层出现问题");
         }
     }
 

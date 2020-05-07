@@ -8,6 +8,7 @@
     <result column="main_supplier_id" jdbcType="INTEGER" property="mainSupplierId" />
     <result column="sec_supplier_id" jdbcType="INTEGER" property="secSupplierId" />
     <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="is_complete" jdbcType="INTEGER" property="isComplete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_id, oder_num, part_id, main_supplier_id, sec_supplier_id, date
+    order_id, oder_num, part_id, main_supplier_id, sec_supplier_id, date, is_complete
   </sql>
   <select id="selectByExample" parameterType="xyz.lsgdut.dhxt.pojo.OrderformExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="xyz.lsgdut.dhxt.pojo.Orderform">
     insert into OrderForm (order_id, oder_num, part_id, 
-      main_supplier_id, sec_supplier_id, date
-      )
+      main_supplier_id, sec_supplier_id, date, 
+      is_complete)
     values (#{orderId,jdbcType=INTEGER}, #{oderNum,jdbcType=INTEGER}, #{partId,jdbcType=INTEGER}, 
-      #{mainSupplierId,jdbcType=INTEGER}, #{secSupplierId,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}
-      )
+      #{mainSupplierId,jdbcType=INTEGER}, #{secSupplierId,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, 
+      #{isComplete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="xyz.lsgdut.dhxt.pojo.Orderform">
     insert into OrderForm
@@ -129,6 +130,9 @@
       <if test="date != null">
         date,
       </if>
+      <if test="isComplete != null">
+        is_complete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -148,6 +152,9 @@
       </if>
       <if test="date != null">
         #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isComplete != null">
+        #{isComplete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.date != null">
         date = #{record.date,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.isComplete != null">
+        is_complete = #{record.isComplete,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       part_id = #{record.partId,jdbcType=INTEGER},
       main_supplier_id = #{record.mainSupplierId,jdbcType=INTEGER},
       sec_supplier_id = #{record.secSupplierId,jdbcType=INTEGER},
-      date = #{record.date,jdbcType=TIMESTAMP}
+      date = #{record.date,jdbcType=TIMESTAMP},
+      is_complete = #{record.isComplete,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="date != null">
         date = #{date,jdbcType=TIMESTAMP},
       </if>
+      <if test="isComplete != null">
+        is_complete = #{isComplete,jdbcType=INTEGER},
+      </if>
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,8 @@
       part_id = #{partId,jdbcType=INTEGER},
       main_supplier_id = #{mainSupplierId,jdbcType=INTEGER},
       sec_supplier_id = #{secSupplierId,jdbcType=INTEGER},
-      date = #{date,jdbcType=TIMESTAMP}
+      date = #{date,jdbcType=TIMESTAMP},
+      is_complete = #{isComplete,jdbcType=INTEGER}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
 </mapper>

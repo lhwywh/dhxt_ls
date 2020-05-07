@@ -34,11 +34,10 @@ public class SupplierController {
     @ResponseBody
     public JSONResult addOneSupplier(@ModelAttribute Supplier supplier) {
         String msg = supplierService.addOneSupplier(supplier);
-
-        if (msg != null) {
+        if (msg.contains("成功")){
             return JSONResult.ok(msg);
-        } else {
-            return JSONResult.errorMsg("控制层出现问题");
+        }else{
+            return JSONResult.errorMsg(msg);
         }
     }
 
@@ -69,10 +68,11 @@ public class SupplierController {
     @ResponseBody
     public JSONResult deleteSupplier( @RequestParam(value = "supplierId", required = true, defaultValue = "-1") int id ) {
         String msg = supplierService.deleteOneSupplier(id);
-        if (msg!=null){
+
+        if (msg.contains("成功")){
             return JSONResult.ok(msg);
         }else{
-            return JSONResult.errorMsg("控制层出现问题");
+            return  JSONResult.errorMsg(msg);
         }
     }
 

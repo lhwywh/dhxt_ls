@@ -39,7 +39,10 @@ public class PartController {
         System.out.println("aaaa"+partInfo1.getPartName());
         String msg = partService.addOnePart(partInfo1);
         if (msg != null) {
-            return JSONResult.ok(msg);
+            if (msg.contains("成功"))
+                return JSONResult.ok(msg);
+            else
+                return JSONResult.errorMsg(msg);
         } else {
             return JSONResult.errorMsg("控制层出现问题");
         }
@@ -73,7 +76,7 @@ public class PartController {
     public JSONResult deleteOnePart(@RequestParam(value = "partId", required = true, defaultValue = "-1") int id) {
         String msg = partService.deleteOnePart(id);
         if (msg!=null){
-            if(msg.equals("删除成功")){
+            if(msg.contains("成功")){
                 return JSONResult.ok(msg);
             }else{
                 return  JSONResult.errorMsg(msg);

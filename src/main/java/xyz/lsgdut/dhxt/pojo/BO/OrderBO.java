@@ -13,16 +13,28 @@ public class OrderBO {
 
     private Integer mainSupplierId;
 
+    public Integer getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Integer isComplete) {
+        this.isComplete = isComplete;
+    }
+
+    private  Integer isComplete;
+
     private Integer secSupplierId;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
-    public OrderBO(Integer orderId, Integer oderNum, Integer partId, Integer mainSupplierId, Integer secSupplierId, Date date) {
+    public OrderBO(Integer orderId, Integer oderNum, Integer partId, Integer mainSupplierId,
+                   Integer secSupplierId, Date date,Integer isComplete) {
         this.orderId = orderId;
         this.oderNum = oderNum;
         this.partId = partId;
         this.mainSupplierId = mainSupplierId;
         this.secSupplierId = secSupplierId;
+        this.isComplete = isComplete;
         this.date = date;
     }
 

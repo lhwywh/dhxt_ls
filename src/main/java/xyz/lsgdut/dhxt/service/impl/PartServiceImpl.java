@@ -34,13 +34,20 @@ public class PartServiceImpl implements PartService {
     @Override
     public String addOnePart(Partinfo partInfo) {
         System.out.println(partInfo.getPartId());
-        int i = partMapper.insert(partInfo);
-        System.out.println("addOnePart返回：" + i);
-        if (i == 0) {
-            return "添加失败";
-        } else {
-            return "添加成功";
+        try {
+            int i = partMapper.insert(partInfo);
+            System.out.println("addOnePart返回：" + i);
+            if (i == 0) {
+                return "添加失败";
+            } else {
+                return "添加成功";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "添加失败,编号重复";
         }
+
+
     }
 
     @Override
@@ -91,10 +98,15 @@ public class PartServiceImpl implements PartService {
         }
         if (addOrReduce==ADD){
             partinfo.setPartNum(partinfo.getPartNum()+num);
-            return "更新成功 入库后库存为："+partinfo.getPartNum();
+            int i =partMapper.updateByPrimaryKey(partinfo);
+            if (i==1)
+                return "更新成功 入库后库存为："+partinfo.getPartNum();
+            else{
+                return "更新失败";
+            }
         }else{
             if (partinfo.getPartNum()<num){
-                return "库存不够了 不能订货了";
+                return "库存不够了 不能订货了 剩余数量："+partinfo.getPartNum();
             }else{
               if ((partinfo.getPartNum()-num)<partinfo.getCriticalValue()){
                   Orderform order = new Orderform();
@@ -110,9 +122,9 @@ public class PartServiceImpl implements PartService {
             partinfo.setPartNum(partinfo.getPartNum()-num);
             int i = partMapper.updateByPrimaryKey(partinfo);
             if (i==1&&a==1){
-                return "更新成功 出库后库存为："+partinfo.getPartNum()+" 小于库存临界值 订货数量："+num*2;
+                return "更新成功 出库后库存为："+partinfo.getPartNum()+" 小于库存临界值 订货数量："+num+"×2"+"="+num*2;
             }else if(i==1){
-                return "更新成功 入库后库存为："+partinfo.getPartNum();
+                return "更新成功 出库后库存为："+partinfo.getPartNum();
             }else{
                 return "更新失败";
             }
@@ -122,13 +134,19 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public String deleteOnePart(int id) {
-        int i = partMapper.deleteByPrimaryKey(id);
-        System.out.println("deleteOnePart返回:"+i);
-        if (i==0){
-            return "删除失败，零件不存在";
-        }else{
-            return "删除成功";
+        try {
+            int i = partMapper.deleteByPrimaryKey(id);
+            System.out.println("deleteOnePart返回:"+i);
+            if (i==0){
+                return "删除失败，零件不存在";
+            }else{
+                return "删除成功";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "删除失败，该零件有订货报表数据，请先删除订货报表数据";
         }
+
 
     }
 }

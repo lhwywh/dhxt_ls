@@ -42,24 +42,36 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public String deleteOneSupplier(int supplierId) {
-        int i = supplierMapper.deleteByPrimaryKey(supplierId);
-        if (i==0){
-            return "修改失败，供应商编号不存在";
-        }else{
-            return "删除成功";
+        try{
+            int i = supplierMapper.deleteByPrimaryKey(supplierId);
+            if (i==0){
+                return "修改失败，供应商编号不存在";
+            }else{
+                return "删除成功";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "修改失败，请先删除使用该供应商的零件";
         }
+
     }
 
     @Override
     public String addOneSupplier(Supplier supplier) {
-        System.out.println(supplier.getSupplierId());
-        int i = supplierMapper.insert(supplier);
-        System.out.println("addOneSupplier返回：" + i);
-        if (i == 0) {
-            return "添加失败";
-        } else {
-            return "添加成功";
+        try{
+            System.out.println(supplier.getSupplierId());
+            int i = supplierMapper.insert(supplier);
+            System.out.println("addOneSupplier返回：" + i);
+            if (i == 0) {
+                return "添加失败";
+            } else {
+                return "添加成功";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "添加失败 供应商重复 不能重名 重ID";
         }
+
     }
 
 

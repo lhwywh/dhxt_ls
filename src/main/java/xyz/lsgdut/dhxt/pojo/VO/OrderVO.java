@@ -16,12 +16,22 @@ public class OrderVO {
     private String partName;
     @Excel(name = "主要供应商ID", orderNum = "4",width = 20)
     private Integer mainSupplierId;
+
+    public Integer getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Integer isComplete) {
+        this.isComplete = isComplete;
+    }
+
     @Excel(name = "主要供应商", orderNum = "5",width = 20)
     private String  mainSupplierName;
+    private Integer isComplete = 0;
 
 
     public OrderVO(Integer orderId, Integer oderNum, Integer partId, String partName, Integer mainSupplierId,
-                   Integer secSupplierId, Date date, String mainSupplierName, String secSupplierName) {
+                   Integer secSupplierId, Date date, String mainSupplierName, String secSupplierName,Integer isComplete) {
         this.orderId = orderId;
         this.oderNum = oderNum;
         this.partId = partId;
@@ -29,6 +39,7 @@ public class OrderVO {
         this.mainSupplierId = mainSupplierId;
         this.secSupplierId = secSupplierId;
         this.date = date;
+        this.isComplete = isComplete;
         this.mainSupplierName = mainSupplierName;
         this.secSupplierName = secSupplierName;
     }
@@ -43,6 +54,7 @@ public class OrderVO {
         this.date = order.getDate();
         this.mainSupplierName = partinfoVO.getMainSupplierName();
         this.secSupplierName = partinfoVO.getSecSupplierName();
+        this.isComplete = order.getIsComplete();
     }
     @Excel(name = "次要供应商ID", orderNum = "6",width = 20)
     private Integer secSupplierId;
